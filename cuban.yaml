@@ -1,6 +1,0 @@
-train: data_cu/images/train
-val: data_cu/images/val
-test: data_cu/images/test
-
-nc: 4
-names: ['prohibitory', 'danger', 'mandatory', 'other']

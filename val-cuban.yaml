@@ -1,0 +1,6 @@
+train: data_cu_rand/images/train
+val: data_cu_rand/images/val
+test: data_cu_rand/images/test
+
+nc: 4
+names: ['prohibitory', 'danger', 'mandatory', 'other']

@@ -1,0 +1,6 @@
+                Class     Images  Instances      Box(P          R      mAP50  mAP50-95)
+                   all        123        236      0.639      0.449      0.494      0.345
+           prohibitory         63         98      0.741      0.531      0.633       0.45
+                danger          9          9      0.562      0.716       0.68       0.45
+             mandatory         19         19      0.666      0.368      0.455      0.331
+                 other         87        110      0.588      0.182      0.209      0.149
