@@ -1,3 +1,4 @@
 /datasets
 /runs/detect/train/weights
+/runs/detect/train4/weights
 /runs/detect/predict
