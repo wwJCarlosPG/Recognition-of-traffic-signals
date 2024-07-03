@@ -17,11 +17,13 @@ Jan Carlos Perez González
 \begin{document}
 \begin{figure}[t]
     \centering
-    \includegraphics{logo matcompng.png}
+    \includegraphics{resources/Universidad de la habana logo.png}
 \end{figure}
 \maketitle
 \begin{center}
-Facultad de Matemática y Computación. Universidad de la Habana
+Facultad de Matemática y Computación.
+
+ Universidad de la Habana
 \end{center}
 \newpage
 \begin{abstract}
@@ -30,7 +32,6 @@ La detección y clasificación de señales de tránsito es una tarea para apoyar
 \textbf{Palabras clave}: Señales de tráfico, redes convolucionales, imágenes segmentadas, YOLOv8
 \end{abstract}
 \newpage
-%\begin{multicols}{2}
 \section{Introducción}
 Las señales de tráfico son los signos visuales utilizados para ofrecerle información a los conductores y peatones que transitan por un camino. Las señales de tráfico se clasifican de acuerdo a sus colores y formas, de manera que sean llamativas para que los automovilistas les presten atención. Muchos países europeos han trabajado para estandarizar las señales de tráfico, lo que dio lugar a la convención de Viena del 8 de noviembre de 1968. 
 
@@ -54,7 +55,22 @@ En 2023 Weizhen Song and Shahrel Azmin Suani\cite{ref2} proponen un nuevo modelo
 
 Para concluir, los métodos basados en aprendizaje profundo, nos ofrecen amplios beneficios, dado su efectividad, precisión y rapidez para detectar y clasificar señales. En particular YOLO, es el que mejores resultados ofrece, además con la llegada de YOLOv8, como son la optimización de bloques residuales y cuellos de botella (bottleneck blocks) más eficientes, optimización de anclas con el algoritmo de K-Means++ mejorando la precisión del modelo, se han mejorado las partes fundamentales de la red (backbone) y la cabeza de la red (head) para una mejor extracción de características y detección de objetos; hace que YOLOv8 sea un buen candidato para utilizar en nuestro modelo.
 \section{Nuestro Modelo}
-\lipsum[1-4]
+Esta sección se divide en 3 secciones esenciales, la creación de la base de datos, la selección del modelo, el entrenamiento del modelo y la transferencia de conocimientos para evaluar con mejores metricas nuestro conjunto de imagenes.
+\subsection{Creacion de la base de datos}
+Para la creación de la base de datos se filmaron varios videos del recorrido de un carro por diferentes calles de La Habana, para luego de cada video extraer las imágenes de las señales. Los videos fueron filmados desde un teléfono con cámara \textit{Sony IMX 586 1/2" 48MP}, lo cual nos provee imágenes de calidad. Además, al ser filmaciones del recorrido de un carro, se obtienen señales de gran variedad, con buena y mala iluminación, en diferentes horarios del día, y con diferentes estados climatológicos lo cual le provee a nuestro conjunto de imágenes mucho realismo. Se obtuvieron un total de 614 fotos y 26 videos.
+
+
+Para la segmentación de las imágenes, utilizamos una herramienta llamada Computer Vision Annotation Tool (CVAT) \cite{ref10}. Las imágenes se separaron en cuatro grupos esenciales, \textbf{Prohibición}, \textbf{Peligro}, \textbf{Obligación}, \textbf{Otras} debido a que, con el total de imágenes que poseíamos el entrenamiento no sería muy efectivo, por lo que se seleccionó otro conjunto de datos para esta tarea, el cual poseía estos grupos. Las imágenes del conjunto de entrenamiento son imágenes de calles de Alemania (El nombre del conjunto de datos es \textit{GTSRB}), puesto que este país europeo forma parte de los países europeos que firmaron la convención Viena a la que Cuba después se añadió. Del total de imágenes se obtuvieron 1011 señales, 70 de peligro, 398 de prohibición, 87 de obligación y 456 de otros tipos de señales, como se muestra en la imagen \ref{fig:Grupos}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{resources/Grupo de señales.png}
+\caption{Señales separadas por grupos}
+\label{fig:Grupos}
+\end{figure}
+
+\subsection{Entrenamiento del modelo}
+
+
 \section{Resultados}
 \lipsum[1-4]
 \section{Conclusiones}
@@ -62,7 +78,6 @@ Para concluir, los métodos basados en aprendizaje profundo, nos ofrecen amplios
 \section{Bibliografía}
 \bibliographystyle{plain}
 \bibliography{referencias} 
-%end{multicols}
 \end{document}
 
 
