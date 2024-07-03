@@ -1,6 +1,6 @@
-train: data/images/train
-val: data/images/val
-test: data/images/test
+train: datasets/data/images/train
+val: datasets/data/images/val
+test: datasets/data/images/test
 
 nc: 4
 names: ['prohibitory', 'danger', 'mandatory', 'other']

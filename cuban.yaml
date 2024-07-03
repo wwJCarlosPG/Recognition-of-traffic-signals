@@ -1,0 +1,6 @@
+train: datasets/data_cu/images/train
+val: datasets/data_cu/images/val
+test: datasets/data_cu/images/test
+
+nc: 4
+names: ['prohibitory', 'danger', 'mandatory', 'other']
