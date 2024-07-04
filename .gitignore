@@ -2,7 +2,7 @@
 *.DS_Store
 /runs/detect/predict
 
-#  Ignore train weights
-/runs/detect/train/weights
-/runs/detect/train4/weights
-/runs/detect/train2/weights
+#  Ignore epochs train weights
+/runs/detect/train_general/weights
+/runs/detect/train_cuban_sim/weights
+/runs/detect/train_cuban_rand/weights

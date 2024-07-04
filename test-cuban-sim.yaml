@@ -1,0 +1,6 @@
+train: data_cu_sim/images/train
+val: data_cu_sim/images/test
+test: data_cu_sim/images/test
+
+nc: 4
+names: ['prohibitory', 'danger', 'mandatory', 'other']
