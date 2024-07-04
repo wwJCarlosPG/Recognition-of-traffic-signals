@@ -5,3 +5,4 @@
 #  Ignore train weights
 /runs/detect/train/weights
 /runs/detect/train4/weights
+/runs/detect/train2/weights
