@@ -1,6 +1,7 @@
 /datasets
 *.DS_Store
-/runs/detect/predict
+/runs/detect/track
+/runs/detect/track2
 
 #  Ignore epochs train weights
 /runs/detect/train_general/weights
