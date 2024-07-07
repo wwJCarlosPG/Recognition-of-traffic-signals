@@ -108,7 +108,7 @@ YOLOv8 es la última versión de YOLO desarrollada por Ultralytics. YOLOv8 se ba
 
 Debido a limitaciones de tiempo en cuanto a la recolección de datos, decidimos utilizar un dataset derivado del (ya reconocido en el campo de Traffic Sign Recognition) German Traffic Sign Recognition Benchmark (GTSRB), con el fin de hacer un entrenamiento preliminar sobre el modelo base \textbf{YOLOv8n}. Además se confeccionó un conjunto de imágenes tomadas en La Habana, con el fin de utilizarlos para un entrenamiento mejor adaptado al entorno de la ciudad.
 
-Buscamos acostumbrar un poco el modelo base en cuanto al reconociemiento de señales de tráfico. Para ello decidimos hacer \textit{transfer learning} sobre el mismo, congelando las primeras capas del modelo convolucional. A partir de ese entrenamiento evaluamos sobre el propio conjunto de datos, y sobre el conjunto de datos CTSRD Tras notar deficiencias en la detección de señales, realizamos un segundo entrenamiento sobre el conjunto de datos de señales tomadas en cuba, organizando los datos de dos formas distintas para lograr mejores resultados. Finalmente evaluamos los modelos obtenidos y hacemos pruebas de campo para visualizar los resultados. 
+Buscamos acostumbrar un poco el modelo base en cuanto al reconociemiento de señales de tráfico. Para ello decidimos hacer \textit{transfer learning} sobre el mismo, congelando las primeras capas del modelo convolucional. A partir de ese entrenamiento evaluamos sobre el propio conjunto de datos, y sobre el conjunto de datos CTSRD. Tras notar deficiencias en la detección de señales, realizamos un segundo entrenamiento sobre el conjunto de datos de señales tomadas en Cuba, organizando los datos de dos formas distintas para lograr mejores resultados. Finalmente evaluamos los modelos obtenidos y hacemos pruebas de campo para visualizar los resultados. 
 
 %==========================MODELO BD==================================================
 
@@ -129,7 +129,7 @@ Debido a que las grabaciones capturan los trayectos del vehículo en diversas co
 \end{figure}
 
 
-Una vez obtenido el volumen de datos, comenzamos la segmentación de las señales en las imágenes. Para ello utilizamos una herramienta llamada Computer Vision Annotation Tool (CVAT) \cite{ref10}, que nos brinda una interfaz sencilla y eficiente para la anotación, además de tener un formato compatible con YOLO. Las imágenes se separaron en cuatro grupos esenciales, \textbf{Prohibición}, \textbf{Peligro}, \textbf{Obligación}, \textbf{Otras}. Del total de imágenes se obtuvieron 1011 señales, 70 de peligro, 398 de prohibición, 87 de obligación y 456 de otros tipos de señales, como se muestra en la imagen \ref{fig:Grupos}
+Una vez obtenido el volumen de datos, comenzamos la segmentación de las señales en las imágenes. Para ello utilizamos una herramienta llamada Computer Vision Annotation Tool (CVAT) \cite{ref10}, que nos brinda una interfaz sencilla y eficiente para la anotación, además de tener un formato compatible con YOLO. Las imágenes se separaron en cuatro grupos esenciales, \textbf{Prohibición}, \textbf{Peligro}, \textbf{Obligación}, \textbf{Otras}. Del total de imágenes se obtuvieron 1011 señales, 70 de peligro, 398 de prohibición, 87 de obligación y 456 de otros tipos de señales, como se muestra en la Figura 2 \ref{fig:Grupos}.
 
 \begin{figure}[h]
 \centering
@@ -147,7 +147,7 @@ Tras tener todas las imágenes segmentadas, debemos separar los datos en los con
 
 \begin{itemize}
 \item{Aleatoriamente utilizando el $20\%$ para el conjunto del prueba, y del conjunto restante, el $20\%$ para validación y el $80\%$ para entrenamiento.}
-\item{Con una idea de separar proporcionalmente los datos, basado en señales que comparten cierta similitud, con el objetivo de hacer la repartición más equitativa para el modelo. Separación que además cumple los porcentajes del tipo de repartición anterior. Por lo que se realizó un conteo de las señales separándolas por dicha similitud, como se aprecia en la figura \ref{fig:sign count}}
+\item{Con una idea de separar proporcionalmente los datos, basado en señales que comparten cierta similitud, con el objetivo de hacer la repartición más equitativa para el modelo. Separación que además cumple los porcentajes del tipo de repartición anterior. Por lo que se realizó un conteo de las señales separándolas por dicha similitud, como se aprecia en la figura \ref{fig:sign count}}.
 \end{itemize}
 \begin{figure}[h]
 \centering
@@ -155,14 +155,14 @@ Tras tener todas las imágenes segmentadas, debemos separar los datos en los con
 \caption{Cantidad de señales separadas por similitud}
 \label{fig:sign count}
 \end{figure}
-En siguiente capítulo que trata sobre el entrenamiento de los modelos se explican las razones y usos de dichas separaciones.
+En siguiente capítulo, que trata sobre el entrenamiento de los modelos se explican las razones y usos de dichas separaciones.
 
 \subsection{Entrenamiento y resultados del modelo}
-Como ya abordamos anteriormente, partimos desde el modelo base \textbf{YOLOv8n} \textit{(nano)}. Este modelo es el más ligero de la familia YOLOv8 y consta de 24 capas y 3.2 millones de parámetros. YOLOv8n ha demostrado un comportamiento al nivel del estado del arte en conjuntos de datos populares como COCO y VOC. 
+Como ya abordamos anteriormente, partimos del modelo base \textbf{YOLOv8n} \textit{(nano)}. Este modelo es el más ligero de la familia YOLOv8 y consta de 24 capas y 3.2 millones de parámetros. YOLOv8n ha demostrado un comportamiento al nivel del estado del arte en conjuntos de datos populares como COCO y VOC. 
 
-YOLO es una excelente opción para transfer learning debido a su arquitectura pre-entrenada que sobresale en la extracción de características. Esto permite que, al aplicarse \textit{Transfer Learning}, el modelo ya cuente con una sólida base de características previamente aprendidas, lo que acelera y mejora el proceso de entrenamiento en nuevos dominios o con datos específicos. 
+YOLO es una excelente opción para Transfer Learning debido a su arquitectura pre-entrenada que sobresale en la extracción de características. Esto permite que, al aplicarse \textit{Transfer Learning}, el modelo ya cuente con una sólida base de características previamente aprendidas, lo que acelera y mejora el proceso de entrenamiento en nuevos dominios o con datos específicos. 
 
-En la primera etapa de la solución entrenamos el modelo en el conjunto de datos GTSRB, con el objetivo de que aprenda a reconocer algunas señales. Para ello decidimos hacer \textit{Transfer Learning} definiendo las primeras 5 épocas como \textit{épocas de calentamiento} y manteniendo invariables los parámetros de las 10 primeras capas, a las que se le conoce como el \textit{backbone} de YOLOv8n, las cuales se encargan de la extracción de características. Este modelo basado en GTSRB se guarda en el archivo $general\_best.pt$ 
+En la primera etapa de la solución entrenamos el modelo en el conjunto de datos GTSRB, con el objetivo de que aprenda a reconocer algunas señales. Para ello decidimos hacer \textit{Transfer Learning} definiendo las primeras 5 épocas como \textit{épocas de calentamiento} y manteniendo invariables los parámetros de las 10 primeras capas, a las que se le conoce como el \textit{backbone} de YOLOv8n, las cuales se encargan de la extracción de características. Este modelo basado en GTSRB se guarda en el archivo $general\_best.pt$.
 
 Una vez entrenado nuestro modelo inicial, evaluamos sus resultados con ambos conjuntos de datos (CTSRD y GTSRB)(figura \ref{fig:results in general}).
 
@@ -220,7 +220,7 @@ De forma general observamos buenas métricas en la evaluación anterior, sin emb
 \label{fig:results in cuban general}
 \end{figure}
 
-Al observar los resultados (figura \ref{fig:results in cuban general}) en este conjunto de datos, es evidente el mal desempeño del modelo. Una de las razones de este mal desempeño es la heterogeneidad de las características que describen a las señales de ambos conjuntos figura, por no mencionar los metadatos de las imágenes. Lo anterior expuesto nos lleva a la necesidad de hacer un nuevo entrenamiento sobre el modelo $general\_best.pt$ con los datos del conjunto CTSRD.
+Al observar los resultados (Figura \ref{fig:results in cuban general}) en este conjunto de datos, es evidente el mal desempeño del modelo. Una de las razones de este mal desempeño es la heterogeneidad de las características que describen a las señales de ambos conjuntos (Figura 6), por no mencionar los metadatos de las imágenes. Lo anterior expuesto nos lleva a la necesidad de hacer un nuevo entrenamiento sobre el modelo $general\_best.pt$ con los datos del conjunto CTSRD.
 
 \begin{figure}[h]
 \centering
@@ -229,7 +229,7 @@ Al observar los resultados (figura \ref{fig:results in cuban general}) en este c
 \label{fig:vs}
 \end{figure}
 
-Para enfrentar esta problemática propusimos dos soluciones de entrenamiento diferenciada por la forma de repartir los datos, explicadas en la sección anterior. La división aleatoria fue la primera aproximación ingenua (modelo $cuban\_rand.pt$), por otra parte, la segunda separación llega como una alternativa más equilibrada para el modelo, en aras de dotar de heterogeneidad en los conjuntos de entrenamiento, validación y prueba (modelo $cuban\_sim.pt$). Comparemos los resultados de ambos modelos
+Para enfrentar esta problemática propusimos dos soluciones de entrenamiento diferenciada por la forma de repartir los datos, explicadas en la sección anterior. La división aleatoria fue la primera aproximación ingenua (modelo $cuban\_rand.pt$), por otra parte, la segunda separación llega como una alternativa más equilibrada para el modelo, en aras de dotar de heterogeneidad en los conjuntos de entrenamiento, validación y prueba (modelo $cuban\_sim.pt$). Comparemos los resultados de ambos modelos.
 
 \begin{figure}[h]
 \begin{subfigure}[b]{0.5\textwidth}
@@ -300,7 +300,7 @@ La mejora en las curvas de F1 (figura \ref{fig:f1 random vs f1 sim}) implica que
 \label{fig:confusion random vs confusion sim}
 \end{figure}
 
-Como se puede apreciar en la matriz de confusión (figura \ref{fig:confusion random vs confusion sim}), el modelo organizado fue capaz de clasificar e identificar mejor cada señal, llevandolo a generalizar mejor.
+Como se puede apreciar en la matriz de confusión (figura \ref{fig:confusion random vs confusion sim}), el modelo organizado fue capaz de clasificar e identificar mejor cada señal, llevándolo a generalizar mejor.
 
 Considerando que el modelo descrito reconoce únicamente las cuatro clases de señales de tráfico mencionadas anteriormente, su implementación se sugiere como un complemento para aumentar la atención de conductores inexpertos en la vía. Este sistema puede funcionar eficazmente como una alerta preventiva, especialmente en el caso de señales de prohibición. La tendencia del modelo a detectar señales con mayor frecuencia que a omitirlas, debido a su alta precisión, contribuye a mantener a los conductores en un estado de alerta constante. Esta característica es particularmente beneficiosa para prevenir accidentes, ya que asegura que los conductores sean informados oportunamente sobre la presencia de señales críticas, permitiéndoles tomar las acciones necesarias para evitar situaciones de peligro.
 
@@ -335,7 +335,7 @@ Inicialmente en los objetivos del proyecto estaba hacer un análisis del daño d
 \begin{itemize}
  \item{Una solución general hubiese sido, basándonos en aprendizaje supervisado, tener un conjunto de datos con señales dañadas y en buen estado. Esto implicaría la construcción de un nuevo conjunto de datos lo cual es inviable por cuestiones de tiempo y recursos.}
  \item{Una posible aproximación también sería la propuesta por Vanessa Dalborgo et al. \cite{ref11}, ya que en Cuba también hay un problema con señales ocultas por vegetación, para ello, se agregaría una nueva clase al modelo, lo que implicaría una segmentación del conjunto de datos en su totalidad, además de requerir más datos de esta clase que se quiere explotar.}
-\item{Por último Bubryur Kim et al. \cite{ref4} proponen un algoritmo para la detección de daño en estructuras de acero, como puentes  y vigas de acero, pero desde una distancia más próxima a las mismas. Se podría utilizar esta propuesta para detectar el daño en las señales de tráfico, por lo anterior expuesto no se puso en practica esta solución}
+\item{Por último Bubryur Kim et al. \cite{ref4} proponen un algoritmo para la detección de daño en estructuras de acero, como puentes  y vigas de acero, pero desde una distancia más próxima a las mismas. Se podría utilizar esta propuesta para detectar el daño en las señales de tráfico, por lo anterior expuesto no se puso en practica esta solución.}
 \end{itemize}
 
 %========================Glosario===============================
@@ -344,12 +344,12 @@ Inicialmente en los objetivos del proyecto estaba hacer un análisis del daño d
 \begin{itemize}
 \item{\textbf{Anchor Boxes:} Las anchor boxes son cajas predefinidas de ciertas alturas y anchuras que se utilizan como referencias para predecir las cajas delimitadoras reales alrededor de los objetos.}
 \item{\textbf{Backbone:} Se refiere a la red de extracción de características que procesa los datos de entrada en una cierta representación de características. Constituido por las primeras capas del modelo.}
-\item{\textbf{Bloques Residuales:} Su idea principal es introducir conexiones de atajo (skip connections) que permiten el flujo de información sin interrupciones a través de la red, saltando una o más capas}
-\item{\textbf{Bottleneck blocks:} Tipo de bloque de convolución que se utiliza para reducir la dimensionalidad de las características intermedias dentro de una red neuronal profunda, y luego expandirlas nuevamente}
+\item{\textbf{Bloques Residuales:} Su idea principal es introducir conexiones de atajo (skip connections) que permiten el flujo de información sin interrupciones a través de la red, saltando una o más capas.}
+\item{\textbf{Bottleneck blocks:} Tipo de bloque de convolución que se utiliza para reducir la dimensionalidad de las características intermedias dentro de una red neuronal profunda, y luego expandirlas nuevamente.}
 \item{\textbf{Bounding Box:} En la detección de objetos, una bounding box es una caja rectangular que se utiliza para definir la posición y el tamaño del objeto en una imagen.}
 \item{\textbf{Épocas de calentamiento:} Técnica utilizada durante el entrenamiento de redes neuronales profundas para suavizar la transición hacia un aprendizaje más agresivo.}
 \item{\textbf{Función SoftMax:} La función softmax, o función exponencial normalizada, se emplea para "comprimir" un vector K-dimensional  de valores reales arbitrarios en un vector K-dimensional, de valores reales en el rango [0, 1].}
-\item{\textbf{Head:} Parte final de la red que se encarga de realizar la predicción de las salidas deseadas, como las clases de los objetos y sus ubicaciones}
+\item{\textbf{Head:} Parte final de la red que se encarga de realizar la predicción de las salidas deseadas, como las clases de los objetos y sus ubicaciones.}
 \item{\textbf{K-Means++:} Es una mejora del algoritmo KMeans estándar. Mejora la inicialización de los centroides para que el algoritmo converja más rápido y alcance una mejor solución final en términos de calidad del clustering.}
 \item{\textbf{Transfer Learning:} En lugar de entrenar un modelo desde cero, se aprovecha el conocimiento adquirido por un modelo existente para mejorar la eficiencia y el rendimiento de un nuevo modelo.}
 \end{itemize}
