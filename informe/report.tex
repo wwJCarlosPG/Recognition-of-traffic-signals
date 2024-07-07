@@ -76,6 +76,9 @@ En 2023 Weizhen Song and Shahrel Azmin Suani\cite{ref2} proponen un nuevo modelo
 
 Para concluir, los métodos basados en aprendizaje profundo, nos ofrecen amplios beneficios, dado su efectividad, precisión y rapidez para detectar y clasificar señales. En particular YOLO, es el que mejores resultados ofrece, además con la llegada de YOLOv8, como son la optimización de bloques residuales y cuellos de botella (\textit{bottleneck blocks}) más eficientes, optimización de anclas con el algoritmo de \textit{K-Means++} mejorando la precisión del modelo, se han mejorado las partes fundamentales de la red (\textit{backbone}) y la cabeza de la red (\textit{head}) para una mejor extracción de características y detección de objetos; hace que YOLOv8 sea un buen candidato para utilizar en nuestro modelo.
 
+\begin{tcolorbox}
+En el archivo \textit{state\_of\_art/state\_of\_art.html} se recoge un resumen de las revisiones bibliográficas que se hicieron
+\end{tcolorbox}
 
 %================================MODELO PARTE 1=======================================
 
@@ -313,7 +316,7 @@ Como parte de las pruebas de campo, hemos acoplado una cámara a un vehículo de
 \end{figure}
 
 La razón de la elección de esta proporción se basa en que la mayoría de las señales de tránsito en carretera se encuentran cercanas al borde derecho de la calle, sin descuidar las que se encuentran en el lado izquierdo; y en menor cantidad en la parte superior de la carretera, junto a semáforos.\\
-Dada la necesidad de obtener resultados certeros en las predicciones de las señales, hemos utilizado un valor de confianza del $70\%$. Vale aclarar que como el porpósito final de este modelo es en grabaciones en tiempo real, la cantidad de capturas en poco tiempo es alta, por lo que existe una mayor probabilidad de detectar una señal que existe, si en una captura falla.\\
+Dada la necesidad de obtener resultados certeros en las predicciones de las señales, hemos utilizado un valor de confianza del $70\%$. Vale aclarar que como el propósito final de este modelo es en grabaciones en tiempo real, la cantidad de capturas en poco tiempo es alta, por lo que existe una mayor probabilidad de detectar una señal que existe, si en una captura falla.\\
 Algunas grabaciones obtenidas han sido postprocesadas por nuestro modelo entrenado, obteniéndose los videos que hubiesen sido detectados en tiempo real.
 
 Con el objetivo de observar mejor el resultado de lo que sería una prueba de campo, hemos provisto el archivo $webcam.py$, que consiste en un script de python que utiliza la webcam integrada en la computadora donde se ejecuta, para obtener predicciones de nuestro modelo en tiempo real.
